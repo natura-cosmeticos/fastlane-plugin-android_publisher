@@ -3,6 +3,9 @@ require_relative '../helper/android_publisher_helper'
 
 module Fastlane
   module Actions
+    module SharedValues
+      VERSION_NAME_VALUE = :VERSION_NAME_VALUE
+    end
     class GetVersionNameAction < Action
       def self.run(params)
         
@@ -14,6 +17,7 @@ module Fastlane
 
         auth_header = Helper::AndroidPublisherHelper.get_auth_header(params)
         version_name = Helper::AndroidPublisherHelper.fetch_version_name(auth_header, params[:package_name], track)
+        Actions.lane_context[SharedValues::VERSION_NAME_VALUE] = version_name
         version_name
       end
 

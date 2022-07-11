@@ -3,6 +3,9 @@ require_relative '../helper/android_publisher_helper'
 
 module Fastlane
   module Actions
+    module SharedValues
+      ROLLOUT_PERCENTAGE_VALUE = :ROLLOUT_PERCENTAGE_VALUE
+    end
     class UpdateRolloutAction < Action
       def self.run(params)
         
@@ -62,6 +65,7 @@ module Fastlane
 
           Helper::AndroidPublisherHelper.update_track_data(auth_header, params[:package_name], track, track_releases)
           has_updated_rollout = true
+          Actions.lane_context[SharedValues::ROLLOUT_PERCENTAGE_VALUE] = rollout_percentage
 
           puts "✅ Release rolled out to #{rollout_percentage}%"
         else

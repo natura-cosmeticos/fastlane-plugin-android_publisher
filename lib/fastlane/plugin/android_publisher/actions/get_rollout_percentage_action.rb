@@ -3,6 +3,10 @@ require_relative '../helper/android_publisher_helper'
 
 module Fastlane
   module Actions
+    module SharedValues
+      ROLLOUT_PERCENTAGE_VALUE = :ROLLOUT_PERCENTAGE_VALUE
+    end
+
     class GetRolloutPercentageAction < Action
       def self.run(params)
         
@@ -15,6 +19,8 @@ module Fastlane
         auth_header = Helper::AndroidPublisherHelper.get_auth_header(params)
         user_fraction = Helper::AndroidPublisherHelper.fetch_rollout(auth_header, params[:package_name], track)
         rollout_percentage = user_fraction * 100
+
+        Actions.lane_context[SharedValues::ROLLOUT_PERCENTAGE_VALUE] = rollout_percentage
         rollout_percentage
       end
 
