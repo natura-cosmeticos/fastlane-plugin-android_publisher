@@ -1,3 +1,19 @@
 lane :test do
-  android_publisher
+  get_rollout_percentage(
+    service_account_path: 'path/service_account.json',
+    package_name: 'my.project.name',
+    track: "production"
+  )
+
+  get_version_name(
+    service_account_path: 'path/service_account.json',
+    package_name: 'my.project.name',
+    track: "production"
+  )
+
+  update_rollout(
+    service_account_path: 'path/service_account.json',
+    package_name: 'my.project.name',
+    track: "production"
+  )
 end
