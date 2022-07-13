@@ -67,14 +67,14 @@ module Fastlane
           Helper::AndroidPublisherHelper.update_track_data(auth_header, params[:package_name], track, track_releases)
 
           has_updated_rollout = true
-          Actions.lane_context[SharedValues::ROLLOUT_PERCENTAGE_VALUE] = rollout_percentage
-          Actions.lane_context[SharedValues::VERSION_NAME_VALUE] = track_releases.releases[0].name
 
           puts "✅ Release rolled out to #{rollout_percentage}%"
         else
           puts "✅ No rollout update needed, already in 100%"
         end
 
+        Actions.lane_context[SharedValues::ROLLOUT_PERCENTAGE_VALUE] = rollout_percentage
+        Actions.lane_context[SharedValues::VERSION_NAME_VALUE] = track_releases.releases[0].name
         has_updated_rollout
       end
 
